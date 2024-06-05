@@ -1,6 +1,6 @@
 {
   "name": "next-fetcher",
-  "version": "2.0.6",
+  "version": "2.5.0",
   "description": "A nextjs typescript friendly utility for seamless data fetching.",
   "homepage": "https://github.com/siamahnaf/next-fetcher",
   "main": "dist/cjs/index.js",
@@ -38,12 +38,12 @@
     "url": "https://github.com/siamahnaf/next-fetcher"
   },
   "devDependencies": {
-    "@types/cookie": "^0.6.0",
     "@types/node": "^18.16.3",
     "next": "^14.2.3",
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "@types/cookie": "^0.6.0",
     "axios": "^1.7.2",
     "cookie": "^0.6.0"
   }

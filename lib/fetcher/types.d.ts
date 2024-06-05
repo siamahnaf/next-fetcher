@@ -1,8 +1,8 @@
 /// <reference types="node" />
-import { CookieSerializeOptions } from "cookie";
-import { IncomingMessage, ServerResponse } from "http";
-import type { NextRequest, NextResponse } from "next/server";
-import type { cookies } from "next/headers";
+import { CookieSerializeOptions } from 'cookie';
+import { IncomingMessage, ServerResponse } from 'http';
+import type { NextRequest, NextResponse } from 'next/server';
+import type { cookies } from 'next/headers';
 export type OptionsType = DefaultOptions | AppRouterOptions;
 export interface DefaultOptions extends CookieSerializeOptions {
     res?: ServerResponse;
