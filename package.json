@@ -1,0 +1,50 @@
+{
+  "name": "next-fetcher",
+  "version": "2.0.6",
+  "description": "A nextjs typescript friendly utility for seamless data fetching.",
+  "homepage": "https://github.com/siamahnaf/next-fetcher",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rimraf dist && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+  },
+  "author": {
+    "name": "Siam Ahnaf",
+    "email": "mail@siamahnaf.com",
+    "url": "https://www.siamahnaf.com"
+  },
+  "license": "ISC",
+  "keywords": [
+    "js",
+    "cookies",
+    "cookie",
+    "next",
+    "next.js",
+    "nextjs",
+    "next-fetcher",
+    "api",
+    "api-fetching",
+    "auto-fetching",
+    "data-fetching"
+  ],
+  "repository": {
+    "type": "git",
+    "directory": "https://github.com/siamahnaf/next-fetcher",
+    "url": "https://github.com/siamahnaf/next-fetcher"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.6.0",
+    "@types/node": "^18.16.3",
+    "next": "^14.2.3",
+    "typescript": "^5.0.4"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cookie": "^0.6.0"
+  }
+}
