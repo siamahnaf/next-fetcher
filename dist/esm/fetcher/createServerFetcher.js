@@ -1,17 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createServerFetcher = void 0;
-const axios_1 = __importDefault(require("axios"));
-const headers_1 = require("next/headers");
+import axios from "axios";
+import { cookies, headers } from "next/headers";
 //Root
-const fetcher_root_1 = require("./fetcher-root");
-const createServerFetcher = ({ next, baseURL, sessionName, cookie }) => {
+import { fetcher } from "./fetcher-root";
+export const createServerFetcher = ({ next, baseURL, sessionName, cookie }) => {
     var _a;
-    const nextHeader = (0, headers_1.headers)();
-    const nextCookie = (0, headers_1.cookies)();
+    const nextHeader = headers();
+    const nextCookie = cookies();
     let rootURL = `${nextHeader.get("x-forwarded-proto")}://${nextHeader.get("host")}`;
     if (!next && !baseURL) {
         throw new Error("Please provide base url as you are using not nextjs api.");
@@ -29,13 +23,12 @@ const createServerFetcher = ({ next, baseURL, sessionName, cookie }) => {
     else {
         token = (_a = nextCookie.get(sessionName)) === null || _a === void 0 ? void 0 : _a.value;
     }
-    const apiClient = axios_1.default.create({
+    const apiClient = axios.create({
         baseURL: rootURL,
         headers: {
             Authorization: token ? `Bearer ${token}` : undefined
         }
     });
-    return (0, fetcher_root_1.fetcher)(apiClient);
+    return fetcher(apiClient);
 };
-exports.createServerFetcher = createServerFetcher;
 //# sourceMappingURL=createServerFetcher.js.map

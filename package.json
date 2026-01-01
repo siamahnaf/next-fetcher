@@ -1,6 +1,6 @@
 {
   "name": "next-fetcher",
-  "version": "2.5.0",
+  "version": "2.5.8",
   "description": "A nextjs typescript friendly utility for seamless data fetching.",
   "homepage": "https://github.com/siamahnaf/next-fetcher",
   "main": "dist/cjs/index.js",

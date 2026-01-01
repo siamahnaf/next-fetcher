@@ -1,4 +1,3 @@
-"use strict";
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -10,9 +9,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteSession = exports.addSession = exports.getCookie = exports.getCookies = void 0;
-const cookie_1 = require("cookie");
+import { serialize, parse } from 'cookie';
 const isClientSide = () => typeof window !== 'undefined';
 const isCookiesFromAppRouter = (cookieStore) => {
     if (!cookieStore)
@@ -51,7 +48,7 @@ const decode = (str) => {
         return str;
     return str.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
 };
-const getCookies = (options) => {
+export const getCookies = (options) => {
     if (isContextFromAppRouter(options)) {
         if (options === null || options === void 0 ? void 0 : options.req) {
             return transformAppRouterCookies(options.req.cookies);
@@ -70,7 +67,7 @@ const getCookies = (options) => {
         if (req && req.cookies)
             return req.cookies;
         if (req && req.headers.cookie)
-            return (0, cookie_1.parse)(req.headers.cookie);
+            return parse(req.headers.cookie);
         return {};
     }
     const _cookies = {};
@@ -83,16 +80,14 @@ const getCookies = (options) => {
     }
     return _cookies;
 };
-exports.getCookies = getCookies;
-const getCookie = (key, options) => {
-    const _cookies = (0, exports.getCookies)(options);
+export const getCookie = (key, options) => {
+    const _cookies = getCookies(options);
     const value = _cookies[key];
     if (value === undefined)
         return undefined;
     return decode(value);
 };
-exports.getCookie = getCookie;
-const addSession = (key, data, options) => {
+export const addSession = (key, data, options) => {
     if (isContextFromAppRouter(options)) {
         const { req, res, cookies: cookiesFn } = options, restOptions = __rest(options, ["req", "res", "cookies"]);
         const payload = Object.assign({ name: key, value: stringify(data) }, restOptions);
@@ -117,7 +112,7 @@ const addSession = (key, data, options) => {
         _res = res;
         _cookieOptions = _options;
     }
-    const cookieStr = (0, cookie_1.serialize)(key, stringify(data), Object.assign({ path: '/' }, _cookieOptions));
+    const cookieStr = serialize(key, stringify(data), Object.assign({ path: '/' }, _cookieOptions));
     if (!isClientSide()) {
         if (_res && _req) {
             let currentCookies = _res.getHeader('Set-Cookie');
@@ -130,7 +125,7 @@ const addSession = (key, data, options) => {
                 data === '' ? delete _cookies[key] : (_cookies[key] = stringify(data));
             }
             if (_req && _req.headers && _req.headers.cookie) {
-                const _cookies = (0, cookie_1.parse)(_req.headers.cookie);
+                const _cookies = parse(_req.headers.cookie);
                 data === '' ? delete _cookies[key] : (_cookies[key] = stringify(data));
                 _req.headers.cookie = Object.entries(_cookies).reduce((accum, item) => {
                     return accum.concat(`${item[0]}=${item[1]};`);
@@ -142,9 +137,7 @@ const addSession = (key, data, options) => {
         document.cookie = cookieStr;
     }
 };
-exports.addSession = addSession;
-const deleteSession = (key, options) => {
-    return (0, exports.addSession)(key, '', Object.assign(Object.assign({}, options), { maxAge: -1 }));
+export const deleteSession = (key, options) => {
+    return addSession(key, '', Object.assign(Object.assign({}, options), { maxAge: -1 }));
 };
-exports.deleteSession = deleteSession;
 //# sourceMappingURL=session.js.map
